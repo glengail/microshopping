@@ -1,0 +1,54 @@
+{{ define "register" }}
+
+{{ template "header" . }}
+<div {{ with $.platform_css }} class="{{.}}" {{ end }}>
+  <span class="platform-flag">
+    {{$.platform_name}}
+  </span>
+</div>
+<main role="main" class="home">
+  
+    <div class="row justify-content-center mt-5 mb-12">
+
+        <div class="col-md-4">
+          <p style="background-color: red;">{{.}}</p>
+          <form method="post" action="/register">
+            <div class="mb-4">
+              <label for="inputUsername" class="form-label">用户名称</label>
+              <input type="text" name="username" class="form-control" id="username"
+                aria-describedby="emailHelp">
+            </div>
+            <div class="mb-4">
+                <label for="inputPassword" class="form-label">密码</label>
+                <input type="password" name="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" placeholder="长度必须为 8-20 个字符，包含字母和数字，并且不得包含空格、特殊字符或表情符号">
+            </div>
+            <div class="mb-4">
+                <label for="inputPassword2" class="form-label">重复密码</label>
+                <input type="password" name="password2" id="password2" class="form-control" aria-describedby="passwordHelpBlock" placeholder="请确保两次输入的密码一致">
+            </div>
+            <div class="mb-4">
+                <label for="inputEmail" class="form-label">电子邮箱</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            </div>
+            <button type="submit" class="btn btn-primary">注册</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="mt-5">
+         <div class="row d-none d-lg-block home-desktop-footer-row">
+        <div class="col-12 p-0">
+          {{ template "footer" . }}
+        </div>
+        </div>
+      </div>
+
+  
+  </main>
+
+<div class="d-lg-none">
+  {{ template "footer" . }}
+</div>
+
+{{ end }}

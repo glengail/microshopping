@@ -1,0 +1,58 @@
+{{ define "search" }}
+
+{{ template "header" . }}
+<div {{ with $.platform_css }} class="{{.}}" {{ end }}>
+  <span class="platform-flag">
+    {{$.platform_name}}
+  </span>
+</div>
+<main role="main" class="search">
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-12">
+
+        <div class="row search-results-row px-xl-6 mt-3">
+
+          <div class="col-12" >
+            <h3>搜索结果</h3>
+          </div>
+
+          <div class="col-12">
+            <div class="d-flex flex-wrap justify-content-start">
+              {{ range $.results }}
+              <div class="search-result-card mx-2 my-3">
+                <a href="/product/{{.Item.Id}}">
+                  <img alt="" src="{{.Item.Picture}}">
+                  <div class="search-result-card-img-overlay"></div>
+                </a>
+                <div>
+                  <div class="search-result-card-name">{{ .Item.Name }}</div>
+                  <div class="search-result-card-price">{{ renderMoney .Price }}</div>
+                </div>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row d-none d-lg-block search-desktop-footer-row">
+          <div class="col-12 p-0">
+            {{ template "footer" . }}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<div class="d-lg-none">
+  {{ template "footer" . }}
+</div>
+
+{{ end }}

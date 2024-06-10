@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package microshopping;
+
+option go_package = "./proto;microshopping";
+
+service UserService {
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse);
+}
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    enum Status {
+        SUCCESS = 0;
+        INVALID_USERNAME = 1;
+        INVALID_PASSWORD = 2;
+    }
+    Status status = 1;
+    bool isAdmin = 2;
+    string token = 3;
+    
+    UserInfo user_info = 4;
+}
+
+message RegisterRequest {
+    string username = 1;
+    string password = 2;
+    string email = 3;
+    // 其他注册所需的信息
+}
+
+message RegisterResponse {
+    enum Status {
+        SUCCESS = 0;
+        USERNAME_ALREADY_EXISTS = 1;
+        INVALID_USERNAME = 2;
+        INVALID_PASSWORD = 3;
+    }
+    Status status = 1;
+}
+
+message GetUserInfoRequest {
+    string user_id = 1;
+}
+
+message GetUserInfoResponse {
+    enum Status {
+        SUCCESS = 0;
+        USER_NOT_FOUND = 1;
+    }
+    Status status = 1;
+    UserInfo user_info = 2;
+}
+
+message UserInfo {
+    string user_id = 1;
+    string username = 2;
+    string email = 3;
+    Address address = 4;
+}
+
+message Empty{}
+// 地址
+message Address {
+    string street_address = 1;
+    string city = 2;
+    string state = 3;
+    string country = 4;
+    int32 zip_code = 5;
+  }
+  

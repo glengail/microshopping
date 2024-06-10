@@ -1,0 +1,49 @@
+syntax = "proto3";
+package microshopping;
+option go_package = "./proto;microshopping";
+
+//分页
+message PageRequest {
+    int32 page = 1;
+    int32 page_size = 2;
+}
+
+message PageResponse {
+    int32 page = 1;
+    int32 page_size = 2;
+    int64 total = 3;
+    repeated Product products = 4;
+}
+message Money{
+    string currency_code = 1;
+    int64 units = 2;
+    int32 nanos = 3;
+}
+service ProductCatalogService{
+    rpc ListProducts(PageRequest)returns(ListProductsResponse){};
+    rpc GetProduct(GetProductRequest)returns(Product){};
+    rpc SearchProducts(SearchProductsRequest)returns(SearchProductsResponse){};
+}
+message Product{
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string picture = 4;
+    Money price_usd = 5;
+    repeated string categories = 6;
+}
+message ListProductsResponse{
+    PageResponse page = 1;
+}
+//根据id查询
+message GetProductRequest{
+    string id = 1;
+}
+message SearchProductsRequest{
+    string query = 1;
+    PageRequest page = 2;
+}
+// 搜索商品响应
+message SearchProductsResponse {
+    PageResponse page = 1;
+}

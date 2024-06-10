@@ -1,0 +1,47 @@
+{{ define "login" }}
+
+{{ template "header" . }}
+<div {{ with $.platform_css }} class="{{.}}" {{ end }}>
+  <span class="platform-flag">
+    {{$.platform_name}}
+  </span>
+</div>
+<main role="main" class="home">
+  
+    <div class="row justify-content-center mt-5 mb-12">
+
+        <div class="col-md-4">
+          <p style="background-color: red;">{{.}}</p>
+          <form method="post" action="/login">
+            <div class="mt-5 mb-4">
+              <label for="exampleInputEmail1" class="form-label">用户名称</label>
+              <input type="text" name="username" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+            </div>
+            <div class="mb-4">
+                <label for="inputPassword5" class="form-label">密码</label>
+                <input type="password" name="password" id="password" class="form-control" aria-describedby="passwordHelpBlock">
+            </div>
+            
+            <div style="display: grid; place-items: center;">
+              <div class="btn-container">
+                  <button type="submit" class="btn btn-primary">登录</button>
+                  <span style="margin: 0 10px;">&nbsp;</span>
+                  <a href="/register" class="btn btn-primary">注册</a>
+              </div>
+          </div>
+          
+          
+          </form>
+        </div>
+
+      </div>
+
+
+  
+  </main>
+
+
+  {{ template "footer" . }}
+
+{{ end }}

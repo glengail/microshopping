@@ -1,0 +1,92 @@
+{{ define "header" }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        基于grpc和gin的电商项目
+    </title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/cart.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/order.css">
+    {{ if $.is_cymbal_brand }}
+    <link rel='shortcut icon' type='image/x-icon' href='/static/favicon-cymbal.ico' />
+    {{ else }}
+    <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
+    {{ end }}
+</head>
+
+<body>
+    <header>
+        <div class="navbar sub-navbar">
+            <div class="container d-flex justify-content-between">
+                <a href="/" class="navbar-brand d-flex align-items-center">
+                    <img src="/static/icons/home.svg" alt="" class="top-left-logo" />
+                </a>
+                <div class="h-controls">
+                    <div class="mt-3">
+                    <svg width="20" height="20" class="DocSearch-Search-Icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </div>
+                    <form action="/search" method="GET" class="mt-2">
+                        <input class="form-control" list="datalistOptions" id="exampleDataList" name="qt" placeholder="搜索商品..." onkeydown="if(event.keyCode==13) {this.form.submit(); return false;}">
+                        <datalist id="datalistOptions">
+                            <option value="太阳镜">
+                            <option value="背心">
+                            <option value="吹风机">
+                            <option value="烛台">
+                        </datalist>
+                    </form>
+                </div>
+                
+                <div class="controls">
+
+                    {{ if $.show_currency }}
+                    <div class="h-controls">
+                        <div class="h-control">
+                            <span class="icon currency-icon"> {{ renderCurrencyLogo $.user_currency}}</span>
+                            <form method="POST" class="controls-form" action="/setCurrency" id="currency_form" >
+                                <select name="currency_code" onchange="document.getElementById('currency_form').submit();">
+                                        {{range $.currencies}}
+                                    <option value="{{.}}" {{if eq . $.user_currency}}selected="selected"{{end}}>{{.}}</option>
+                                    {{end}}
+                                </select>
+                            </form>
+                            <img src="/static/icons/Hipster_DownArrow.svg" alt="" class="icon arrow" />
+                        </div>
+                    </div>
+                    {{ end }}
+
+                    <div class="mt-3 mr-2">
+                     <a href="/cart" class="cart-link">
+                        <img src="/static/icons/Hipster_CartIcon.svg" alt="Cart icon" class="logo" title="Cart" />
+                        {{ if $.cart_size }}
+                        <span class="cart-size-circle">{{$.cart_size}}</span>
+                        {{ end }}
+                    </a>   
+                    </div>
+                    
+                    <div class="mt-3 ml-2 mr-2"  class="cart-link">
+                     <a href="/login">
+                        <img src="/static/icons/user.svg" alt="Login icon" class="logo" title="Login" />
+                    </a>   
+                    </div>
+
+                    <div class="mt-3">
+                        <a href="/logout"  class="cart-link">
+                           <img src="/static/icons/logout.svg" alt="Logout icon" class="logo" title="Logout" />
+                       </a>   
+                       </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    {{end}}

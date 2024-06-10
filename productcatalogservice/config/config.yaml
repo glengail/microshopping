@@ -1,0 +1,11 @@
+Env: "dev"
+
+DatabaseSettings:
+  DatabaseURI: "root:123456@tcp(127.0.0.1:3306)/test_db?parseTime=True&loc=Local"
+  DatabaseName: "test_db"
+  Username: "root"
+  Password: "123456"
+
+
+JwtSettings:
+  SecretKey: "glengail.com"
